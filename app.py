@@ -90,59 +90,59 @@ def get_next_direction_with_no_across():
 @app.route('/get_next_direction', methods=['POST'])
 def get_next_direction():
 
-    def _inner(first):
+    def _inner(position):
         direction = random.randint(0, 4)
-        if 1 <= first < 20:
+        if 1 <= position < 20:
             if direction == 0:
-                first = 20 if first == 1 else first - 1
+                position = 20 if position == 1 else position - 1
             elif direction == 1:
-                first += 380
+                position += 380
             elif direction == 2:
-                first += 1
+                position += 1
             else:
-                first += 20
+                position += 20
 
-        elif first % 20 == 0:
+        elif position % 20 == 0:
             if direction == 0:
-                first -= 1
+                position -= 1
             elif direction == 1:
-                first = 400 if first == 20 else first - 20
+                position = 400 if position == 20 else position - 20
             elif direction == 2:
-                first -= 19
+                position -= 19
             else:
-                first += 20
+                position += 20
 
-        elif first % 20 == 1:
+        elif position % 20 == 1:
             if direction == 0:
-                first += 19
+                position += 19
             elif direction == 1:
-                first -= 20
+                position -= 20
             elif direction == 2:
-                first += 1
+                position += 1
             else:
-                first = 1 if first == 381 else first + 20
+                position = 1 if position == 381 else position + 20
 
-        elif 381 < first < 400:
+        elif 381 < position < 400:
             if direction == 0:
-                first -= 1
+                position -= 1
             elif direction == 1:
-                first -= 20
+                position -= 20
             elif direction == 2:
-                first += 1
+                position += 1
             else:
-                first -= 380
+                position -= 380
 
         else:
             if direction == 0:
-                first -= 1
+                position -= 1
             elif direction == 1:
-                first -= 20
+                position -= 20
             elif direction == 2:
-                first += 1
+                position += 1
             else:
-                first += 20
+                position += 20
 
-        return first
+        return position
 
     request_dict = request.form.to_dict()
     _temp = [int(e) for e in request_dict['positions'].split(',')]
