@@ -5,21 +5,29 @@ function updateBackgroundColor(target_id, rm_cls, add_cls) {
 
 window.onload = () => {
   var flg = true;
-  var first = 1;
+  var positions = [1, 5, 10, 277, 310];
+  // var conditions = [];
 
   setInterval(() => {
     if (flg) {
-      updateBackgroundColor(first, 'lightyellow', 'red');
+      positions.forEach(function (e) {
+        updateBackgroundColor(e, 'lightyellow', 'lightblue');
+      })
       flg = false;
     } else {
-      updateBackgroundColor(first, 'red', 'lightyellow');
+      positions.forEach(function (e) {
+        updateBackgroundColor(e, 'lightblue', 'lightyellow');
+      })
       // eslint-disable-next-line no-undef
       $.ajax({
         url: '/get_next_direction',
         type: 'POST',
-        data: {'first': first}
+        data: {'positions': positions.join()}
       }).done(function (data) {
-        first = Number(data.first);
+        positions = [];
+        data.positions.split(',').forEach(function (e) {
+          positions.push(Number(e))
+        })
         flg = true;
       });
     }
