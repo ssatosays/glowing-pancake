@@ -89,61 +89,65 @@ def get_next_direction_with_no_across():
 
 @app.route('/get_next_direction', methods=['POST'])
 def get_next_direction():
+
+    def _inner(first):
+        direction = random.randint(0, 4)
+        if 1 <= first < 20:
+            if direction == 0:
+                first = 20 if first == 1 else first - 1
+            elif direction == 1:
+                first += 380
+            elif direction == 2:
+                first += 1
+            else:
+                first += 20
+
+        elif first % 20 == 0:
+            if direction == 0:
+                first -= 1
+            elif direction == 1:
+                first = 400 if first == 20 else first - 20
+            elif direction == 2:
+                first -= 19
+            else:
+                first += 20
+
+        elif first % 20 == 1:
+            if direction == 0:
+                first += 19
+            elif direction == 1:
+                first -= 20
+            elif direction == 2:
+                first += 1
+            else:
+                first = 1 if first == 381 else first + 20
+
+        elif 381 < first < 400:
+            if direction == 0:
+                first -= 1
+            elif direction == 1:
+                first -= 20
+            elif direction == 2:
+                first += 1
+            else:
+                first -= 380
+
+        else:
+            if direction == 0:
+                first -= 1
+            elif direction == 1:
+                first -= 20
+            elif direction == 2:
+                first += 1
+            else:
+                first += 20
+
+        return first
+
     request_dict = request.form.to_dict()
-    first = int(request_dict['first'])
-    direction = random.randint(0, 4)
-
-    if 1 <= first < 20:
-        if direction == 0:
-            first = 20 if first == 1 else first - 1
-        elif direction == 1:
-            first += 380
-        elif direction == 2:
-            first += 1
-        else:
-            first += 20
-
-    elif first % 20 == 0:
-        if direction == 0:
-            first -= 1
-        elif direction == 1:
-            first = 400 if first == 20 else first - 20
-        elif direction == 2:
-            first -= 19
-        else:
-            first += 20
-
-    elif first % 20 == 1:
-        if direction == 0:
-            first += 19
-        elif direction == 1:
-            first -= 20
-        elif direction == 2:
-            first += 1
-        else:
-            first = 1 if first == 381 else first + 20
-
-    elif 381 < first < 400:
-        if direction == 0:
-            first -= 1
-        elif direction == 1:
-            first -= 20
-        elif direction == 2:
-            first += 1
-        else:
-            first -= 380
-
-    else:
-        if direction == 0:
-            first -= 1
-        elif direction == 1:
-            first -= 20
-        elif direction == 2:
-            first += 1
-        else:
-            first += 20
-
-    return jsonify({'first': first})
+    _temp = [int(e) for e in request_dict['positions'].split(',')]
+    positions = [str(_inner(p)) for p in _temp]
+    return jsonify({'positions': ','.join(positions)})
 
 
 if __name__ == '__main__':
