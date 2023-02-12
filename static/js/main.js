@@ -19,15 +19,15 @@ window.onload = () => {
     if (flg) {
       positions.forEach(function (e) {
         if (!infected.includes(e)) {
-          updateBackgroundColor(e, ['lightyellow', 'red'], 'lightblue');
+          updateBackgroundColor(e, ['bg-lightyellow', 'bg-red'], 'bg-lightblue');
         } else {
-          updateBackgroundColor(e, ['lightyellow', 'lightblue'], 'red');
+          updateBackgroundColor(e, ['bg-lightyellow', 'bg-lightblue'], 'bg-red');
         }
       })
       flg = false;
     } else {
       positions.forEach(function (e) {
-        updateBackgroundColor(e, ['lightblue', 'red'], 'lightyellow');
+        updateBackgroundColor(e, ['bg-lightblue', 'bg-red'], 'bg-lightyellow');
       })
       // eslint-disable-next-line no-undef
       $.ajax({
@@ -46,6 +46,8 @@ window.onload = () => {
         data.infected.split(',').forEach(function (e) {
           infected.push(Number(e))
         });
+        document.getElementById('positions-length').innerText = positions.length;
+        document.getElementById('infected-length').innerText = infected.length;
         flg = true;
       });
     }
