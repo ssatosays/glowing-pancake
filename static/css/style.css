@@ -11,14 +11,18 @@
   font-size: 10px;
 }
 
-.lightyellow {
+.bg-lightyellow {
   background-color: lightyellow;
 }
 
-.lightblue {
+.bg-lightblue {
   background-color: lightblue;
 }
 
-.red {
+.bg-red {
   background-color: red;
+}
+
+.text-red {
+  color: red;
 }
