@@ -1,3 +1,8 @@
+function getRandomInt() {
+  const max = 400;
+  return Math.floor(Math.random() * max) + 1;
+}
+
 function updateBackgroundColor(target_id, rm_clses, add_cls) {
   rm_clses.forEach(function (rm_cls) {
     if (document.getElementById(String(target_id)).classList.contains(rm_cls)) {
@@ -9,11 +14,18 @@ function updateBackgroundColor(target_id, rm_clses, add_cls) {
 
 window.onload = () => {
   var flg = true;
-  var positions = [
-    1, 4, 5, 6, 10, 25, 30, 31, 32, 33,
-    100, 101, 102, 103, 277, 300, 301, 302, 309, 310
-  ];
-  var infected = [5];
+
+  var positions = [];
+  const reqPositionsNumber = 40;
+  [...Array(reqPositionsNumber).keys()].forEach(function () {
+    positions.push(getRandomInt());
+  });
+
+  var infected = [];
+  const reqInfectedNumber = 1;
+  [...Array(reqInfectedNumber).keys()].forEach(function (e) {
+    infected.push(positions.at(e));
+  });
 
   setInterval(() => {
     if (flg) {
@@ -48,6 +60,9 @@ window.onload = () => {
         });
         document.getElementById('positions-length').innerText = positions.length;
         document.getElementById('infected-length').innerText = infected.length;
+        // console.log('----- debug -----');
+        // console.log(positions);
+        // console.log(infected);
         flg = true;
       });
     }
