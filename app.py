@@ -93,10 +93,8 @@ def get_next_direction_with_no_across():
     return jsonify({'first': first})
 
 
-@app.route('/get_next_direction', methods=['POST'])
-def get_next_direction():
-    """
-    """
+@app.route('/get_next_positions', methods=['POST'])
+def get_next_positions():
 
     def _inner(position):
         direction = random.randint(0, 4)

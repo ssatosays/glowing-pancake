@@ -43,7 +43,7 @@ window.onload = () => {
       })
       // eslint-disable-next-line no-undef
       $.ajax({
-        url: '/get_next_direction',
+        url: '/get_next_positions',
         type: 'POST',
         data: {
           'positions': positions.join(),
