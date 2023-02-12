@@ -5,8 +5,14 @@
   <body>
     <div class="container">
       {% for i in range(1, 401) %}
-        <div id="{{ i }}" class="cell lightyellow">{{ i }}</div>
+        <div id="{{ i }}" class="cell bg-lightyellow">{{ i }}</div>
       {% endfor %}
+    </div>
+    <div>
+      <ul>
+        <li>positions.length: <span id="positions-length"></span></li>
+        <li>infected.length: <span id="infected-length" class="text-red"></span></li>
+      </ul>
     </div>
     <script src="http://code.jquery.com/jquery-1.5.1.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
