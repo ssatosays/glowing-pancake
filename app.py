@@ -19,6 +19,12 @@ def favicon():
 
 @app.route('/get_next_direction_with_no_across', methods=['POST'])
 def get_next_direction_with_no_across():
+    """
+    """
+
+    def _inner(position):  # noqa
+        return
+
     request_dict = request.form.to_dict()
     first = int(request_dict['first'])
 
@@ -89,6 +95,8 @@ def get_next_direction_with_no_across():
 
 @app.route('/get_next_direction', methods=['POST'])
 def get_next_direction():
+    """
+    """
 
     def _inner(position):
         direction = random.randint(0, 4)
@@ -110,7 +118,7 @@ def get_next_direction():
             elif direction == 2:
                 position -= 19
             else:
-                position += 20
+                position = 20 if position == 400 else position + 20
 
         elif position % 20 == 1:
             if direction == 0:
@@ -144,10 +152,18 @@ def get_next_direction():
 
         return position
 
+    positions = []
+    infected = []
     request_dict = request.form.to_dict()
-    _temp = [int(e) for e in request_dict['positions'].split(',')]
-    positions = [str(_inner(p)) for p in _temp]
-    return jsonify({'positions': ','.join(positions)})
+    src_positions = [int(e) for e in request_dict['positions'].split(',')]
+    src_infected = [int(e) for e in request_dict['infected'].split(',')]
+    for position in src_positions:
+        next_position = str(_inner(position))
+        positions.append(next_position)
+        if position in src_infected:
+            infected.append(next_position)
+
+    return jsonify({'positions': ','.join(positions), 'infected': ','.join(infected)})
 
 
 if __name__ == '__main__':
