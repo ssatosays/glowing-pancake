@@ -27,6 +27,9 @@ window.onload = () => {
     infected.push(positions.at(e));
   });
 
+  const beginAt = new Date();
+  document.getElementById('begin-at').innerText = beginAt.toLocaleString();
+
   setInterval(() => {
     if (flg) {
       positions.forEach(function (e) {
