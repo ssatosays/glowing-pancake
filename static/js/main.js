@@ -13,7 +13,8 @@ function updateBackgroundColor(target_id, rm_clses, add_cls) {
 }
 
 window.onload = () => {
-  var flg = true;
+  var completeFlg = false;
+  var actionFlg = true;
 
   var positions = [];
   const reqPositionsNumber = 40;
@@ -31,7 +32,8 @@ window.onload = () => {
   document.getElementById('begin-at').innerText = beginAt.toLocaleString();
 
   setInterval(() => {
-    if (flg) {
+    if (completeFlg) return
+    if (actionFlg) {
       positions.forEach(function (e) {
         if (!infected.includes(e)) {
           updateBackgroundColor(e, ['bg-lightyellow', 'bg-red'], 'bg-lightblue');
@@ -39,7 +41,7 @@ window.onload = () => {
           updateBackgroundColor(e, ['bg-lightyellow', 'bg-lightblue'], 'bg-red');
         }
       })
-      flg = false;
+      actionFlg = false;
     } else {
       positions.forEach(function (e) {
         updateBackgroundColor(e, ['bg-lightblue', 'bg-red'], 'bg-lightyellow');
@@ -66,7 +68,7 @@ window.onload = () => {
         // console.log('----- debug -----');
         // console.log(positions);
         // console.log(infected);
-        flg = true;
+        actionFlg = true;
       });
     }
   }, 125);
