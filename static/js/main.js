@@ -34,13 +34,20 @@ window.onload = () => {
   setInterval(() => {
     if (completeFlg) return
     if (actionFlg) {
+      var healtyFlg = false;
       positions.forEach(function (e) {
         if (!infected.includes(e)) {
           updateBackgroundColor(e, ['bg-lightyellow', 'bg-red'], 'bg-lightblue');
+          healtyFlg = true;
         } else {
           updateBackgroundColor(e, ['bg-lightyellow', 'bg-lightblue'], 'bg-red');
         }
       })
+      if (!healtyFlg) {
+        const endAt = new Date();
+        document.getElementById('end-at').innerText = endAt.toLocaleString();
+        completeFlg = true;
+      }
       actionFlg = false;
     } else {
       positions.forEach(function (e) {
