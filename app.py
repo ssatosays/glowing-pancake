@@ -19,6 +19,8 @@ def favicon():
 
 @app.route('/get_next_positions_with_no_across', methods=['POST'])
 def get_next_positions_with_no_across():
+    """ WIP
+    """
 
     def _inner(first):
         if first == 1:
@@ -96,6 +98,7 @@ def get_next_positions():
 
     def _inner(position):
         direction = random.randint(0, 4)
+        # 0: Left, 1: Up, 2: Right, 3: Down
         if 1 <= position < 20:
             if direction == 0:
                 position = 20 if position == 1 else position - 1
